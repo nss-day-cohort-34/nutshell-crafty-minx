@@ -5,5 +5,47 @@
       "username": "howard",
       "email": "howard@gmail.com"
     }
+  ],
+  "userFriends": [
+    {
+    "id": 1,
+    "userId": 0,
+    "friendId": 0
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "",
+      "date": "",
+      "location": "",
+      "userId": 0
+    }
+  ],
+  "articles": [
+    {
+      "id": 1,
+      "title": "",
+      "synopsis": "",
+      "URL": "",
+      "timestamp": "",
+      "userId": 0
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "chatMessage": "",
+      "userId": 0
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "",
+      "date": "",
+      "completed": false,
+      "userId": 0
+    }
   ]
 }
