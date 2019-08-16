@@ -2,7 +2,7 @@ package-lock.json
 node_modules/
 dist/
 .DS_Store
-# api/
+api/
 database.json
-# nutshell.json
-# example.json
+nutshell.json
+example.json
