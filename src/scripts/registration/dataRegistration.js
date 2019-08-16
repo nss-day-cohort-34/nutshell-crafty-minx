@@ -11,6 +11,7 @@ const API = {
             },
             body: JSON.stringify(newUser)
         })
+            .then(response => response.json())
     }
 }
 
