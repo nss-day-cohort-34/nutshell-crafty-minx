@@ -3,7 +3,7 @@ const eventsHTML = {
     createEventsContainer() {
         return `
             <h2>Events</h2>
-            <section id="originalEventDisplay">
+            <section id="eventDisplay">
                 <button id="createEvent">Create Event</button>
             </section>
             <section id="listOfEvents">

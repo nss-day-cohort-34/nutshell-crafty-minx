@@ -1,14 +1,13 @@
 import renderEvents from "./domEvents";
 import eventsHTML from "./factoryEvents";
 
-const initialEventDisplay = eventsHTML.createEventsContainer()
 
-
-
-const mainEvents = () => {
+const initEvents = () => {
+    const initialEventDisplay = eventsHTML.createEventsContainer()
     renderEvents(initialEventDisplay)
-    
+
+
 
 }
 
-export default mainEvents
+export default initEvents
