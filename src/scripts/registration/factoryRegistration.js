@@ -1,5 +1,4 @@
 // New User Front Page Registration
-
 const welcomePageHTML = {
     createWelcome() {
         return `
@@ -8,17 +7,17 @@ const welcomePageHTML = {
             <div id="signIn">
                 <h3>Log Into My Account</h3>
                 <fieldset>
-                <label for="userName">User Name</label>    
-                <input type="text" id="userName" name="userName"></input>  
+                <label for="username">Username</label>    
+                <input type="text" id="username" name="username"></input>  
                 </fieldset>
                 <fieldset>
-                <label for="email">Email Address</label>    
-                <input type="text" id="email" name="email"></input>  
+                <label for="password">Password</label>    
+                <input type="password" id="password" name="password"></input>  
                 </fieldset>
                 <button id="logIn">Log In</button>
             </div>
             <div>
-                <button id="createAccount">Don't have an account?</button>
+                <button id="noAccount">Don't have an account?</button>
             </div>
         `
     },
@@ -27,17 +26,16 @@ const welcomePageHTML = {
         <div id="signIn">
             <h3>Create New Account</h3>
             <fieldset>
-            <label for="userName">User Name</label>    
-            <input type="text" id="userName" name="userName"></input>  
+            <label for="username">User Name</label>    
+            <input type="text" id="username" name="username"></input>  
             </fieldset>
             <fieldset>
-            <label for="email">Email Address</label>    
-            <input type="text" id="email" name="email"></input>  
+            <label for="password">Password</label>    
+            <input type="password" id="password" name="password"></input>  
             </fieldset>
             <button id="saveNewAccount">Create Account</button>
         </div>
            `
     }
 }
-
 export default welcomePageHTML
