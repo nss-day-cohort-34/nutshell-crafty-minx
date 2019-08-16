@@ -1,20 +1,8 @@
 {
-  "users": [
-
-  ],
-  "userFriends": [
-    
-  ],
-  "events": [
-    
-  ],
-  "articles": [
-
-  ],
-  "messages": [
-    
-  ],
-  "tasks": [
-    
-  ]
+  "users": [],
+  "userFriends": [],
+  "events": [],
+  "articles": [],
+  "messages": [],
+  "tasks": []
 }

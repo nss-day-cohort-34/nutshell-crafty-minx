@@ -4,11 +4,6 @@
         "id": 1,
         "username": "howard",
         "email": "howard@gmail.com"
-      },
-      {
-        "username": "fake",
-        "email": "fake@email.com",
-        "id": 2
       }
     ],
     "userFriends": [
