@@ -3,6 +3,10 @@ const API = {
         return fetch("http://localhost:8088/users")
             .then(response => response.json())
     },
+    getSingleUser(user) {
+        return fetch(`http://localhost:8088/users/${user.id}`)
+            .then(response => response.json())
+    },
     saveNewUser(newUser) {
         return fetch("http://localhost:8088/users", {
             method: "POST",
@@ -11,6 +15,7 @@ const API = {
             },
             body: JSON.stringify(newUser)
         })
+            .then(response => response.json())
     }
 }
 

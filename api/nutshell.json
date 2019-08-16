@@ -1,20 +1,44 @@
 {
   "users": [
-
+    {
+      "username": "aaaaaa",
+      "password": "aaaaa",
+      "id": 1
+    },
+    {
+      "username": "aaaa",
+      "password": "aaaa",
+      "id": 2
+    },
+    {
+      "username": "aaa",
+      "password": "aaaaa",
+      "id": 3
+    },
+    {
+      "username": "bbbbbb",
+      "password": "bbbbbb",
+      "id": 4
+    },
+    {
+      "username": "ccccccccccc",
+      "password": "cccccccccccc",
+      "id": 5
+    },
+    {
+      "username": "ddddd",
+      "password": "ddddd",
+      "id": 6
+    },
+    {
+      "username": "segsgse",
+      "password": "sesgbseb",
+      "id": 7
+    }
   ],
-  "userFriends": [
-    
-  ],
-  "events": [
-    
-  ],
-  "articles": [
-
-  ],
-  "messages": [
-    
-  ],
-  "tasks": [
-    
-  ]
+  "userFriends": [],
+  "events": [],
+  "articles": [],
+  "messages": [],
+  "tasks": []
 }
