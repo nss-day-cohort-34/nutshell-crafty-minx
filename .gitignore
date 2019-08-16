@@ -4,3 +4,5 @@ dist/
 .DS_Store
 api/
 database.json
+nutshell.json
+example.json

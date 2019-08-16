@@ -1,0 +1,56 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "username": "howard",
+        "email": "howard@gmail.com"
+      },
+      {
+        "username": "fake",
+        "email": "fake@email.com",
+        "id": 2
+      }
+    ],
+    "userFriends": [
+      {
+        "id": 1,
+        "userId": 1,
+        "friendId": 1
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "title": "",
+        "date": "",
+        "location": "",
+        "userId": 1
+      }
+    ],
+    "articles": [
+      {
+        "id": 1,
+        "title": "",
+        "synopsis": "",
+        "URL": "",
+        "timestamp": "",
+        "userId": 1
+      }
+    ],
+    "messages": [
+      {
+        "id": 1,
+        "chatMessage": "",
+        "userId": 1
+      }
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "title": "",
+        "date": "",
+        "completed": false,
+        "userId": 1
+      }
+    ]
+  }
