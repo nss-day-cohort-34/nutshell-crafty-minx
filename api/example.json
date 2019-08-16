@@ -14,8 +14,8 @@
     "userFriends": [
       {
         "id": 1,
-        "userId": 0,
-        "friendId": 0
+        "userId": 1,
+        "friendId": 1
       }
     ],
     "events": [
@@ -24,7 +24,7 @@
         "title": "",
         "date": "",
         "location": "",
-        "userId": 0
+        "userId": 1
       }
     ],
     "articles": [
@@ -34,14 +34,14 @@
         "synopsis": "",
         "URL": "",
         "timestamp": "",
-        "userId": 0
+        "userId": 1
       }
     ],
     "messages": [
       {
         "id": 1,
         "chatMessage": "",
-        "userId": 0
+        "userId": 1
       }
     ],
     "tasks": [
@@ -50,7 +50,7 @@
         "title": "",
         "date": "",
         "completed": false,
-        "userId": 0
+        "userId": 1
       }
     ]
   }
