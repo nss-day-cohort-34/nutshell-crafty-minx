@@ -2,7 +2,7 @@
 const welcomePageHTML = {
     createWelcome() {
         return `
-            <h1>Welcome to Nutshell, the Premiere Social Networking Application</h1><hr/>
+            <h1>Welcome to Nutshell, the Premiere Social Networking Application</h1>
             
             <div id="signIn">
                 <h3>Log Into My Account</h3>
@@ -36,6 +36,15 @@ const welcomePageHTML = {
             <button id="saveNewAccount">Create Account</button>
         </div>
            `
+    },
+    createDashboard() {
+        return `
+        <article id="tasks"></article>
+        <article id="events"></article>
+        <article id="articles"></article>
+        <article id="messages"></article>
+        <article id="friends"></article>
+        `
     }
 }
 export default welcomePageHTML
