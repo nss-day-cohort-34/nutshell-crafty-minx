@@ -1,4 +1,4 @@
-const API = {
+const registrationAPI = {
     getUsers() {
         return fetch("http://localhost:8088/users")
             .then(response => response.json())
@@ -15,4 +15,4 @@ const API = {
     }
 }
 
-export default API
+export default registrationAPI

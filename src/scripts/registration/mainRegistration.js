@@ -1,4 +1,4 @@
-import API from "./dataRegistration"
+import registrationAPI from "./dataRegistration"
 import welcomePageHTML from "./factoryRegistration.js"
 import renderRegistration from "./domRegistration.js"
 
@@ -27,6 +27,7 @@ const initRegistration = () => {
             // User clicks on "Log In"
         } else if (event.target.id.startsWith("logIn")) {
             registrationContainer.innerHTML = ""
+            // PLACEHOLDER - we'll need additional logic for this condition
         } else if (event.target.id.startsWith("saveNewAccount")) {
             // User clicks on the "Create Account" button after clicking on "Don't have an account?"
             // Get reference to username and email input fields
@@ -36,7 +37,7 @@ const initRegistration = () => {
                 alert("Please fill out both fields")
             } else {
                 const newUser = createNewUser(usernameInput, passwordInput)
-                API.saveNewUser(newUser)
+                registrationAPI.saveNewUser(newUser)
                     .then(newUser => {
                         sessionStorage.setItem("activeUser", newUser.id)
                         let sessionUser = sessionStorage.getItem("activeUser")

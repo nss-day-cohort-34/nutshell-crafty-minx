@@ -3,10 +3,10 @@ const eventsHTML = {
     createEventsContainer() {
         return `
             <h2>Events</h2>
-            <section id="eventDisplay">
+            <section id="eventsDisplay">
                 <button id="createEvent">Create Event</button>
-            </section>
-            <section id="listOfEvents">
+                <div id="listOfEvents">
+                </div>
             </section>
         `
     },
@@ -21,6 +21,10 @@ const eventsHTML = {
             <fieldset>
             <label for="eventDate">Event Date</label>    
             <input type="date" id="eventDate" name="eventDate"></input>  
+            </fieldset>
+            <fieldset>
+            <label for="eventLocation">Event Location</label>    
+            <input type="text" id="eventLocation" name="eventLocation"></input>  
             </fieldset>
             <button id="saveNewEvent">Save New Event</button>
         </section>
