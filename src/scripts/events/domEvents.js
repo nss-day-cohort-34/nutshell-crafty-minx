@@ -1,7 +1,11 @@
 const eventsContainer = document.querySelector("#events")
+const eventsDisplay = document.querySelector("#eventsDisplay")
+const listOfEvents = document.querySelector("#listOfEvents")
 
-const renderEvents = (HTMLString) => {
-    eventsContainer.innerHTML += HTMLString
+const eventsRendering = {
+    renderEvents(HTMLString) {
+        eventsContainer.innerHTML += HTMLString
+    }
 }
 
-export default renderEvents
+export default eventsRendering

@@ -13,7 +13,8 @@ const eventsHTML = {
     createNewEventForm() {
         return `
         <section id="eventForm">
-            <h3>Create New Event</h3>
+            <h4>Create New Event</h4>
+            <input type="hidden" id="hiddenEventId" value="" />
             <fieldset>
             <label for="eventTitle">Event Title</label>    
             <input type="text" id="eventTitle" name="eventTitle"></input>  
@@ -29,6 +30,16 @@ const eventsHTML = {
             <button id="saveNewEvent">Save New Event</button>
         </section>
            `
+    },
+    createEventRepresentation(event) {
+        return `
+        <section class="event">
+            <p class="eventTitle">Title: ${event.title}</p>
+            <p class="eventDate">Date: ${event.date}</p>
+            <p class="eventLocation">Location: ${event.location}</p>
+        </section>
+        `
     }
 }
+
 export default eventsHTML

@@ -1,6 +1,6 @@
 const eventsAPI = {
-    getUsers() {
-        return fetch("http://localhost:8088/users")
+    getEvents(activeUserId) {
+        return fetch(`http://localhost:8088/events?userId=${activeUserId}`)
             .then(response => response.json())
     },
     saveNewEvent(newEvent) {
