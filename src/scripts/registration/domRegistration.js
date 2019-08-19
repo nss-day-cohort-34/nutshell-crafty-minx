@@ -1,7 +1,13 @@
 const registrationContainer = document.querySelector("#registration")
+const dashboardContainer = document.querySelector("#primaryContainer")
 
-const renderRegistration = (HTMLString) => {
-    registrationContainer.innerHTML += HTMLString
+const renderFunctions = {
+    renderRegistration(HTMLString) {
+        registrationContainer.innerHTML = HTMLString
+    },
+    renderDashboard(HTMLString) {
+        dashboardContainer.innerHTML = HTMLString
+    }
 }
 
-export default renderRegistration
+export default renderFunctions

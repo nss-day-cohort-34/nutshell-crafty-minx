@@ -45,7 +45,6 @@ const initEvents = () => {
         })
     }
 
-
     // Function to create new event
     const createNewEvent = (eventTitle, eventDate, eventLocation, activeUserId) => {
         return {

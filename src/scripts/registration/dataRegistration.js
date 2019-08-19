@@ -12,6 +12,10 @@ const registrationAPI = {
             body: JSON.stringify(newUser)
         })
             .then(response => response.json())
+    },
+    getSingleUser(username) {
+        return fetch(`http://localhost:8088/users?q=${username}`)
+            .then(response => response.json())
     }
 }
 
