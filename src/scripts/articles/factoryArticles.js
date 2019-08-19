@@ -35,6 +35,15 @@ createJSON(title, synopsis, url, timestamp, userID) {
         timestamp: timestamp,
         userID: userID
       }
+},
+
+factoryPostedArticle(object) {
+    return `
+    <h4>Title: ${object.title}</h4>
+    <h5>Synopsis: ${object.synopsis}</h5>
+    <h5>URL: ${object.url}</h5>
+    <h6>Posted: ${object.timestamp}</h6>
+    `
 }
 
 }

@@ -3,6 +3,7 @@ import welcomePageHTML from "./registration/factoryRegistration";
 import renderRegistration from "./registration/domRegistration";
 import renderToArticles from "./articles/domArticles";
 import factoryArticles from "./articles/factoryArticles";
+import articlesData from "./articles/dataArticles";
 
 
 /*----------------------REGISTRATION----------------------*/
@@ -101,6 +102,14 @@ articleContainer.addEventListener("click", event => {
         },
         body: JSON.stringify(newArticle)
         })
+
+        articlesData.articleFetch().then(articles => {
+            articleContainer.innerHTML = ""
+            for (const article of articles) {
+                const postedArticleConverted = factoryArticles.factoryPostedArticle(article)
+                renderToArticles(postedArticleConverted);
+            }
+            })
     }
 })
 
