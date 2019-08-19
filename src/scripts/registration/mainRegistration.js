@@ -1,6 +1,7 @@
 import registrationAPI from "./dataRegistration"
 import welcomePageHTML from "./factoryRegistration.js"
 import renderFunctions from "./domRegistration.js"
+import initEvents from "../events/mainEvents"
 
 // Get reference to registration page container
 const registrationContainer = document.querySelector("#registration")
@@ -39,6 +40,7 @@ const initRegistration = () => {
                             registrationContainer.innerHTML = ""
                             const dashboardHTML = welcomePageHTML.createDashboard()
                             renderFunctions.renderDashboard(dashboardHTML)
+                            initEvents()
                         } else {
                             alert("Username and password do not match any registered account. Please try again.")
                         }

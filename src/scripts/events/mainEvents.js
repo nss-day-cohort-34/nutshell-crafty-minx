@@ -14,7 +14,7 @@ let activeUserId = sessionStorage.getItem("activeUser")
 const initEvents = () => {
     // Initial event display
     const initialEventDisplay = eventsHTML.createEventsContainer()
-    eventsRendering.renderEvents(initialEventDisplay)
+    eventsRendering.renderEvents(eventsContainer, initialEventDisplay)
     eventsAPI.getEvents(activeUserId)
         .then((events) => {
             copyAndDisplayEvents(events)
@@ -26,8 +26,8 @@ const initEvents = () => {
     const eventsDisplay = document.querySelector("#eventsDisplay")
     const listOfEvents = document.querySelector("#listOfEvents")
     // Render events
-    const renderEventsList = (HTMLString) => {
-        listOfEvents.innerHTML += HTMLString
+    const renderEventsList = (location, HTMLString) => {
+        location.innerHTML += HTMLString
     }
 
     // Sort events in descending order by ID
@@ -41,7 +41,7 @@ const initEvents = () => {
         const sortedCopiedEvents = sortEventsById(copiedEventsArray)
         sortedCopiedEvents.forEach(event => {
             const HTMLVersion = eventsHTML.createEventRepresentation(event)
-            renderEventsList(HTMLVersion)
+            renderEventsList(listOfEvents, HTMLVersion)
         })
     }
 
@@ -60,7 +60,7 @@ const initEvents = () => {
         if (event.target.id.startsWith("createEvent")) {
             eventsDisplay.innerHTML = ""
             const eventsForm = eventsHTML.createNewEventForm()
-            eventsRendering.renderEvents(eventsForm)
+            eventsRendering.renderEvents(eventsContainer, eventsForm)
             // Logic to save new event
         } else if (event.target.id.startsWith("saveNewEvent")) {
             // Get reference to input fields
