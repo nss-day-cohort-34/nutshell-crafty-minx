@@ -80,7 +80,29 @@ newArticleButton.addEventListener("click", () => {
     renderToArticles(newArticleConverted)
 })
 
+const articleContainer = document.querySelector("#articles")
+const newDate = new Date();
+const timestamp = newDate.toUTCString();
+let activeID = sessionStorage.getItem("activeUser")
 
+articleContainer.addEventListener("click", event => {
+    if (event.target.id.startsWith("saveArticleButton")) {
+        const articleTitle = document.querySelector(".articleTitleInput")
+        const articleSynopsis = document.querySelector(".articleSynopsisInput")
+        const articleURL = document.querySelector(".articleURLInput")
+        console.log(articleTitle.value, articleSynopsis.value, articleURL.value);
+        const newArticle = factoryArticles.createJSON(articleTitle.value, articleSynopsis.value, articleURL.value, timestamp, activeID);
+        console.log(newArticle);
+
+        fetch("http://localhost:8088/articles", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newArticle)
+        })
+    }
+})
 
 
 /*----------------------END ARTICLES----------------------*/

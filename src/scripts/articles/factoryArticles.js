@@ -25,7 +25,18 @@ factoryNewArticle() {
         <button id="saveArticleButton" name="saveArticleButton">Save Article</button>
     </div>
     `
-  }
+  },
+
+createJSON(title, synopsis, url, timestamp, userID) {
+    return {
+        title: title,
+        synopsis: synopsis,
+        url: url,
+        timestamp: timestamp,
+        userID: userID
+      }
+}
+
 }
 
 export default factoryArticles
