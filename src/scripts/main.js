@@ -1,6 +1,7 @@
 import API from "./registration/dataRegistration";
 import welcomePageHTML from "./registration/factoryRegistration";
 import renderRegistration from "./registration/domRegistration";
+import initTasks from "./tasks/mainTasks.js"
 /*----------------------REGISTRATION----------------------*/
 // Show welcome message and log in form when page loads
 const html = welcomePageHTML.createWelcome()
@@ -62,6 +63,7 @@ registrationContainer.addEventListener("click", () => {
 })
 /*----------------------END REGISTRATION----------------------*/
 /*----------------------TASKS----------------------*/
+initTasks()
 /*----------------------END TASKS----------------------*/
 /*----------------------EVENTS----------------------*/
 /*----------------------END EVENTS----------------------*/
