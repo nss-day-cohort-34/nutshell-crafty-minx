@@ -8,12 +8,15 @@ factoryArticlesWelcome() {
     </div>
     <div id="articlesContainer">
     </div>
+    <div id="postsContainer">
+    </div>
     `
 },
 
 factoryNewArticle() {
     return `
     <fieldset>
+        <input type="hidden" id="editID" value="">
         <label for="articleTitle">Title</label>
         <input class="articleTitleInput" type="text" name="articleTitle" id="articleTitle">
         <label for="articleSynopsis">Synopsis</label>
@@ -43,6 +46,12 @@ factoryPostedArticle(object) {
     <h5>Synopsis: ${object.synopsis}</h5>
     <h5>URL: ${object.url}</h5>
     <h6>Posted: ${object.timestamp}</h6>
+    <div>
+    <button class="button2" id="deleteButton--${object.id}">Delete</button>
+    </div>
+    <div>
+    <button class="button2" id="editButton--${object.id}">Edit</button>
+    </div>
     `
 }
 

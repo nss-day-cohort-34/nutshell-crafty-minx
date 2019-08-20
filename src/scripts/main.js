@@ -1,7 +1,7 @@
 import API from "./registration/dataRegistration";
 import welcomePageHTML from "./registration/factoryRegistration";
 import renderRegistration from "./registration/domRegistration";
-import renderToArticles from "./articles/domArticles";
+import domArticles from "./articles/domArticles";
 import factoryArticles from "./articles/factoryArticles";
 import articlesData from "./articles/dataArticles";
 import initRegistration from "./registration/mainRegistration";
@@ -10,65 +10,6 @@ import initEvents from "./events/mainEvents";
 
 /*----------------------REGISTRATION----------------------*/
 initRegistration()
-
-// // Show welcome message and log in form when page loads
-// const html = welcomePageHTML.createWelcome()
-// renderRegistration(html)
-// // Get reference to registration page container
-// const registrationContainer = document.querySelector("#registration")
-// // Create a new user object
-// const createNewUser = (username, password) => {
-//     return {
-//         username: username.value,
-//         password: password.value
-//     }
-// }
-
-// // Get reference to username and email input fields
-// // const usernameInput = document.querySelector("#username")
-// // const passwordInput = document.querySelector("#password")
-// // const inputsArray = [usernameInput, emailInput]
-// // TABLED FOR LATER: Check if user filled out both input fields when they try to create account
-// // const checkEmptyFields = () => {
-// //     let validated
-// //     for (let i = 0; i < inputsArray.length; i++) {
-// //         const input = inputsArray[i]
-// //         if (input.value === "") {
-// //             validated = false
-// //             alert("Please fill out both fields")
-// //             break
-// //         } else {
-// //             validated = true
-// //         }
-// //         return validated
-// //     }
-// // }
-
-// // Event listener on results container
-// registrationContainer.addEventListener("click", () => {
-//     if (event.target.id.startsWith("noAccount")) {
-//         registrationContainer.innerHTML = ""
-//         const newAccountHTML = welcomePageHTML.createAccount()
-//         renderRegistration(newAccountHTML)
-//     } else if (event.target.id.startsWith("logIn")) {
-//         registrationContainer.innerHTML = ""
-//     } else if (event.target.id.startsWith("saveNewAccount")) {
-//         // const resultOfValidation = checkEmptyFields()
-//         // if (resultOfValidation) {
-//         const usernameInput = document.querySelector("#username")
-//         const passwordInput = document.querySelector("#password")
-//         const newUser = createNewUser(usernameInput, passwordInput)
-//         API.saveNewUser(newUser)
-//             .then(newUser => {
-//                 sessionStorage.setItem("activeUser", newUser.id)
-//                 let sessionUser = sessionStorage.getItem("activeUser")
-//                 console.log(sessionUser)
-//             })
-//         // }
-//     } else {
-//         event.stopPropagation()
-//     }
-// })
 /*----------------------END REGISTRATION----------------------*/
 /*----------------------TASKS----------------------*/
 /*----------------------END TASKS----------------------*/
@@ -76,27 +17,43 @@ initRegistration()
 initEvents()
 /*----------------------END EVENTS----------------------*/
 /*----------------------ARTICLES----------------------*/
+
+//render welcome page
+
 const welcomeConverted = factoryArticles.factoryArticlesWelcome()
-renderToArticles(welcomeConverted)
+domArticles.renderToArticles(welcomeConverted)
 
 const newArticleButton = document.querySelector("#newArticleButton")
 
+//add new article
+
 newArticleButton.addEventListener("click", () => {
     const newArticleConverted = factoryArticles.factoryNewArticle()
-    renderToArticles(newArticleConverted)
+    domArticles.renderToArticlesContainer(newArticleConverted)
 })
 
-const articleContainer = document.querySelector("#articles")
+const articles = document.querySelector("#articles")
 const newDate = new Date();
 const timestamp = newDate.toUTCString();
 let activeID = sessionStorage.getItem("activeUser")
 
-articleContainer.addEventListener("click", event => {
+//post new article
+
+articles.addEventListener("click", event => {
     if (event.target.id.startsWith("saveArticleButton")) {
         const articleTitle = document.querySelector(".articleTitleInput")
         const articleSynopsis = document.querySelector(".articleSynopsisInput")
         const articleURL = document.querySelector(".articleURLInput")
         console.log(articleTitle.value, articleSynopsis.value, articleURL.value);
+
+        const hiddenEditId = document.querySelector("#editID")
+
+        if (hiddenEditId.value !== "") {
+            const updatedObject = factoryArticles.createJSON(articleTitle.value, articleSynopsis.value, articleURL.value, timestamp, activeID);
+            editEntry(hiddenEditId.value, updatedObject)
+
+        } else {
+
         const newArticle = factoryArticles.createJSON(articleTitle.value, articleSynopsis.value, articleURL.value, timestamp, activeID);
         console.log(newArticle);
 
@@ -107,17 +64,90 @@ articleContainer.addEventListener("click", event => {
         },
         body: JSON.stringify(newArticle)
         })
-
         articlesData.articleFetch().then(articles => {
-            articleContainer.innerHTML = ""
             for (const article of articles) {
                 const postedArticleConverted = factoryArticles.factoryPostedArticle(article)
-                renderToArticles(postedArticleConverted);
+                domArticles.renderToPostsContainer(postedArticleConverted);
             }
             })
     }
+    }
 })
 
+//delete article
+
+articles.addEventListener("click", (event) => {
+    if (event.target.id.startsWith("deleteButton")) {
+        const deleteID = event.target.id.split("--")[1]
+        deleteEntry(deleteID)
+    }
+    articlesData.articleFetch().then(articles => {
+        for (const article of articles) {
+            const postedArticleConverted = factoryArticles.factoryPostedArticle(article)
+            domArticles.renderToPostsContainer(postedArticleConverted);
+        }
+        })
+
+})
+
+const deleteEntry = (deleteID) => {
+    return fetch(`http://localhost:8088/articles/${deleteID}`,
+    {
+        "method": "DELETE"
+    }
+    )
+    .then(response => response.json())
+}
+
+//edit article
+
+const updateFields = (editIDparam) => {
+
+    // Get reference to input fields in the form
+    const hiddenEditId = document.querySelector("#editID")
+    const articleTitleInput = document.querySelector(".articleTitleInput")
+    const articleSynopsisInput = document.querySelector(".articleSynopsisInput")
+    const articleURLInput = document.querySelector(".articleURLInput")
+
+    fetch(`http://localhost:8088/articles/${editIDparam}`)
+        .then(response => response.json())
+        .then(articles => {
+            hiddenEditId.value = articles.id // Hidden value. User no see. 🙈
+            articleTitleInput.value = articles.title
+            articleSynopsisInput.value = articles.synopsis
+            articleURLInput.value = articles.url
+        })
+    }
+
+articles.addEventListener("click", event => {
+    if (event.target.id.startsWith("editButton")) {
+        console.log(event.target.id)
+        const entryToEdit = event.target.id.split("--")[1]
+        console.log(entryToEdit);
+
+        updateFields(entryToEdit)
+    }
+    })
+
+// -will need to update event-listener on submit button to include conditional logic
+// so th button knows whether this is a new entry (POST) or edited entry (PUT)
+
+const editEntry = (editID, updatedObject) => {
+    // Logic for the PUT operation
+
+    fetch(`http://localhost:8088/articles/${editID}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedObject)
+    })
+    .then(res => res.json())
+    .then(() => {
+        const hiddenEditId = document.querySelector("#editID")
+        hiddenEditId.value = "";
+    })
+}
 
 /*----------------------END ARTICLES----------------------*/
 /*----------------------MESSAGES----------------------*/
