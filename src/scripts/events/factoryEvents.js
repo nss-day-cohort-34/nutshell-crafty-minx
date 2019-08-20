@@ -37,6 +37,8 @@ const eventsHTML = {
             <p class="eventTitle">Title: ${event.title}</p>
             <p class="eventDate">Date: ${event.date}</p>
             <p class="eventLocation">Location: ${event.location}</p>
+            <button id="edit-${event.id}">Edit</button>
+            <button id="delete-${event.id}">Delete</button>
         </section>
         `
     }
