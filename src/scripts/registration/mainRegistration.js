@@ -1,15 +1,15 @@
 import registrationAPI from "./dataRegistration"
-import welcomePageHTML from "./factoryRegistration.js"
-import renderFunctions from "./domRegistration.js"
-import initEvents from "../events/mainEvents"
+import welcomePageHTML from "./factoryRegistration"
+import renderFunctions from "./domRegistration"
+import dashboardFunctions from "../dashboard"
 
 // Get reference to registration page container
 const registrationContainer = document.querySelector("#registration")
 
 const initRegistration = () => {
     // Show welcome message and log in form when page loads
-    const html = welcomePageHTML.createWelcome()
-    renderFunctions.renderRegistration(html)
+    const welcomeHTML = welcomePageHTML.createWelcome()
+    renderFunctions.renderRegistration(welcomeHTML)
     // Create a new user object
     const createNewUser = (username, password) => {
         return {
@@ -38,9 +38,7 @@ const initRegistration = () => {
                         if (user[0].username === usernameInput.value && user[0].password === passwordInput.value) {
                             sessionStorage.setItem("activeUser", user[0].id)
                             registrationContainer.innerHTML = ""
-                            const dashboardHTML = welcomePageHTML.createDashboard()
-                            renderFunctions.renderDashboard(dashboardHTML)
-                            initEvents()
+                            dashboardFunctions()
                         } else {
                             alert("Username and password do not match any registered account. Please try again.")
                         }
@@ -62,8 +60,7 @@ const initRegistration = () => {
                                 .then(newUser => {
                                     sessionStorage.setItem("activeUser", newUser.id)
                                     registrationContainer.innerHTML = ""
-                                    const dashboardHTML = welcomePageHTML.createDashboard()
-                                    renderFunctions.renderDashboard(dashboardHTML)
+                                    dashboardFunctions()
                                 })
                         } else {
                             alert("Username already exists. Please choose another or log in if you already have an account")

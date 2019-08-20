@@ -2,9 +2,6 @@ import eventsRendering from "./domEvents";
 import eventsHTML from "./factoryEvents";
 import eventsAPI from "./dataEvents";
 
-// Get reference to Events article, the main container
-const eventsContainer = document.querySelector("#events")
-
 // Get a reference to the hidden Id field for editing and sorting purposes
 const hiddenEventId = document.querySelector("#hiddenEventId")
 
@@ -12,36 +9,30 @@ const hiddenEventId = document.querySelector("#hiddenEventId")
 let activeUserId = sessionStorage.getItem("activeUser")
 
 const initEvents = () => {
+    const eventsContainer = document.querySelector("#events")
     // Initial event display
     const initialEventDisplay = eventsHTML.createEventsContainer()
     eventsRendering.renderEvents(eventsContainer, initialEventDisplay)
     eventsAPI.getEvents(activeUserId)
-        .then((events) => {
+        .then(events => {
             copyAndDisplayEvents(events)
         })
 
-    // Logic to display list of events
-    // if (activeUserId === event.UserId)
-
     const eventsDisplay = document.querySelector("#eventsDisplay")
     const listOfEvents = document.querySelector("#listOfEvents")
-    // Render events
-    const renderEventsList = (location, HTMLString) => {
-        location.innerHTML += HTMLString
-    }
 
     // Sort events in descending order by ID
     const sortEventsById = (eventsArray) => {
-        const descendingEvents = eventsArray.sort((a, b) => b.id - a.id)
+        const descendingEvents = eventsArray.sort((a, b) => b.date - a.date)
         return descendingEvents
     }
-
+    // Make a copy of the events array and apply sorting
     const copyAndDisplayEvents = (events) => {
         const copiedEventsArray = [...events]
         const sortedCopiedEvents = sortEventsById(copiedEventsArray)
         sortedCopiedEvents.forEach(event => {
             const HTMLVersion = eventsHTML.createEventRepresentation(event)
-            renderEventsList(listOfEvents, HTMLVersion)
+            eventsRendering.renderEvents(listOfEvents, HTMLVersion)
         })
     }
 
@@ -77,11 +68,33 @@ const initEvents = () => {
                     .then(() => {
                         const eventForm = document.querySelector("#eventForm")
                         eventForm.innerHTML = ""
-                        // eventsRendering.renderEvents(initialEventDisplay)
+                    })
+                    .then(() => (eventsAPI.getEvents(activeUserId)))
+                    .then(events => {
+                        console.log(events)
+                        listOfEvents.innerHTML = ""
+                        copyAndDisplayEvents(events)
                     })
             }
         } else {
             event.stopPropagation()
+        }
+    })
+
+    // Edit and Delete event listener
+    listOfEvents.addEventListener("click", () => {
+        if (event.target.id.startsWith("delete")) {
+            // Ask user to confirm deletion request before executing
+            const confirmDeletion = confirm("Do you want to delete this event?")
+            if (confirmDeletion) {
+                const eventToDelete = event.target.id.split("-")[1]
+                eventsAPI.deleteEvent(eventToDelete)
+                    .then(() => (eventsAPI.getEvents(activeUserId)))
+                    .then(events => {
+                        listOfEvents.innerHTML = ""
+                        copyAndDisplayEvents(events)
+                    })
+            }
         }
     })
 }
