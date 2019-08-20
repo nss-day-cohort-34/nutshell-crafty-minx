@@ -15,7 +15,8 @@ const newArticleButton = document.querySelector("#newArticleButton");
 newArticleButton.addEventListener("click", () => {
   const newArticleConverted = factoryArticles.factoryNewArticle();
   domArticles.renderToArticlesContainer(newArticleConverted);
-  articlesData.articleFetch().then(articles => {
+  const activeUserId = sessionStorage.getItem("activeUser")
+  articlesData.articleFetch(activeUserId).then(articles => {
     for (const article of articles) {
       const postedArticleConverted = factoryArticles.factoryPostedArticle(
         article
@@ -52,8 +53,8 @@ articles.addEventListener("click", event => {
       editEntry(hiddenEditId.value, updatedObject).then(() => {
         postsContainer.innerHTML = "";
         console.log(postsContainer)
-
-        articlesData.articleFetch().then(articles => {
+        const activeUserId = sessionStorage.getItem("activeUser")
+        articlesData.articleFetch(activeUserId).then(articles => {
           for (const article of articles) {
             const postedArticleConverted = factoryArticles.factoryPostedArticle(
               article
@@ -80,7 +81,8 @@ articles.addEventListener("click", event => {
         body: JSON.stringify(newArticle)
       }).then(() => {
         postsContainer.innerHTML = "";
-        articlesData.articleFetch().then(articles => {
+        const activeUserId = sessionStorage.getItem("activeUser")
+        articlesData.articleFetch(activeUserId).then(articles => {
           for (const article of articles) {
             const postedArticleConverted = factoryArticles.factoryPostedArticle(
               article
@@ -101,7 +103,8 @@ articles.addEventListener("click", event => {
     deleteEntry(deleteID)
     .then(() => {
       postsContainer.innerHTML = "";
-      articlesData.articleFetch().then(articles => {
+      const activeUserId = sessionStorage.getItem("activeUser")
+      articlesData.articleFetch(activeUserId).then(articles => {
         for (const article of articles) {
           const postedArticleConverted = factoryArticles.factoryPostedArticle(
             article

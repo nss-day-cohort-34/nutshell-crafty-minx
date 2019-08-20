@@ -1,7 +1,7 @@
 const articlesData = {
 
-articleFetch() {
-    return fetch("http://localhost:8088/articles?_sort=id&_order=desc")
+articleFetch(activeUserId) {
+    return fetch(`http://localhost:8088/articles?userID=${activeUserId}&_sort=id&_order=desc`)
     .then(data => data.json())
 
   }
