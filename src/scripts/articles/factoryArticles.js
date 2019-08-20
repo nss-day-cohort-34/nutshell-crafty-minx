@@ -47,10 +47,10 @@ factoryPostedArticle(object) {
     <h5>URL: ${object.url}</h5>
     <h6>Posted: ${object.timestamp}</h6>
     <div>
-    <button class="button2" id="deleteButton--${object.id}">Delete</button>
+    <button class="button2" id="editButton--${object.id}">Edit</button>
     </div>
     <div>
-    <button class="button2" id="editButton--${object.id}">Edit</button>
+    <button class="button2" id="deleteButton--${object.id}">Delete</button>
     </div>
     `
 }
