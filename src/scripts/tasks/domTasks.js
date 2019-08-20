@@ -1,7 +1,7 @@
-const tasksContainer = document.querySelector("#tasks")
+// const tasksContainer = document.querySelector("#tasks")
 
-const renderTasks = (HTMLString) => {
-    tasksContainer.innerHTML += HTMLString
+const renderTasks = (location, HTMLString) => {
+    location.innerHTML += HTMLString
 }
 
 export default renderTasks

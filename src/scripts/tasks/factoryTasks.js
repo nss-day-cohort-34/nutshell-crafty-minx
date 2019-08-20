@@ -12,6 +12,7 @@ const tasksHTML = {
     createNewTaskForm() {
         return `
             <section id="createNewTaskForm">
+            <input type="hidden" id="taskId" value=""/>
             <h3>Create New Task</h3>
             <fieldset>
                 <label for="taskName">Name of Task</label>    
@@ -19,19 +20,22 @@ const tasksHTML = {
             </fieldset>
             <fieldset>
                 <label for="taskCompletionDate">Expected Completion Date</label>
-                <input type="date" name="tastCompletionDate" id="taskCompletionDate">
+                <input type="date" name="taskCompletionDate" id="taskCompletionDate">
             </fieldset>
             <button id="saveTask">Save Task</button>
         `
     },
-    createTasksList() {
+    createTasksList(taskObject, completedStatus) {
         return `
-            <h3>List of Tasks</h3>
-            <section id="taskListName">Name of Task</section>
-            <section id="taskCompletionDate>Expected Completion Date</section>
-            <button id="editButton">Edit</button>
+            <section id="taskListName">Title: ${taskObject.title}</section>
+            <section id="taskCompletionDate">Expected Completion Date: ${taskObject.date}</section>
+            // make below line a checkbox //
+            <section id="taskCompletion">Completed: <input type="checkbox" id="check" value="${taskObject.completed}" ${taskObject.completed === true ? "checked" : ""}></section>
+            <button id="editButton_${taskObject.id}">Edit</button>
+            <button id="deleteButton_${taskObject.id}">Delete</button>
         `
     }
 }
 
 export default tasksHTML
+// ternary
