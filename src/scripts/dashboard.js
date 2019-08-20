@@ -10,7 +10,7 @@ const dashboardFunctions = () => {
     renderFunctions.renderDashboard(dashboardHTML)
     // initTasks()
     initEvents()
-    // initArticles()
+    initArticles()
     // initMessages()
 }
 
