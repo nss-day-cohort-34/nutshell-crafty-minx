@@ -2,7 +2,7 @@ import domArticles from "./domArticles";
 import factoryArticles from "./factoryArticles";
 import articlesData from "./dataArticles";
 
-const initArticles = () => {
+const initArticles = (activeUserId) => {
 //render welcome page
 
 const welcomeConverted = factoryArticles.factoryArticlesWelcome();
@@ -15,7 +15,7 @@ const newArticleButton = document.querySelector("#newArticleButton");
 newArticleButton.addEventListener("click", () => {
   const newArticleConverted = factoryArticles.factoryNewArticle();
   domArticles.renderToArticlesContainer(newArticleConverted);
-  const activeUserId = sessionStorage.getItem("activeUser")
+  // const activeUserId = sessionStorage.getItem("activeUser")
   articlesData.articleFetch(activeUserId).then(articles => {
     for (const article of articles) {
       const postedArticleConverted = factoryArticles.factoryPostedArticle(
@@ -53,7 +53,7 @@ articles.addEventListener("click", event => {
       editEntry(hiddenEditId.value, updatedObject).then(() => {
         postsContainer.innerHTML = "";
         console.log(postsContainer)
-        const activeUserId = sessionStorage.getItem("activeUser")
+        // const activeUserId = sessionStorage.getItem("activeUser")
         articlesData.articleFetch(activeUserId).then(articles => {
           for (const article of articles) {
             const postedArticleConverted = factoryArticles.factoryPostedArticle(
@@ -81,7 +81,7 @@ articles.addEventListener("click", event => {
         body: JSON.stringify(newArticle)
       }).then(() => {
         postsContainer.innerHTML = "";
-        const activeUserId = sessionStorage.getItem("activeUser")
+        // const activeUserId = sessionStorage.getItem("activeUser")
         articlesData.articleFetch(activeUserId).then(articles => {
           for (const article of articles) {
             const postedArticleConverted = factoryArticles.factoryPostedArticle(
@@ -103,7 +103,7 @@ articles.addEventListener("click", event => {
     deleteEntry(deleteID)
     .then(() => {
       postsContainer.innerHTML = "";
-      const activeUserId = sessionStorage.getItem("activeUser")
+      // const activeUserId = sessionStorage.getItem("activeUser")
       articlesData.articleFetch(activeUserId).then(articles => {
         for (const article of articles) {
           const postedArticleConverted = factoryArticles.factoryPostedArticle(
