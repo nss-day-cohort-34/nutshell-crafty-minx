@@ -35,7 +35,9 @@ const initRegistration = () => {
             } else {
                 registrationAPI.getSingleUser(usernameInput.value)
                     .then(user => {
-                        if (user[0].username === usernameInput.value && user[0].password === passwordInput.value) {
+                        if (user.length < 1) {
+                            alert("Account does not exist. Please click \"Don't have an account?\" to create one.")
+                        } else if (user[0].username === usernameInput.value && user[0].password === passwordInput.value) {
                             sessionStorage.setItem("activeUser", user[0].id)
                             registrationContainer.innerHTML = ""
                             dashboardFunctions()
