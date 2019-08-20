@@ -3,16 +3,15 @@ import eventsHTML from "./factoryEvents";
 import eventsAPI from "./dataEvents";
 
 // Get a reference to the hidden Id field for editing and sorting purposes
-const hiddenEventId = document.querySelector("#hiddenEventId")
-
-// Get userId for activeUser
-let activeUserId = sessionStorage.getItem("activeUser")
+// const hiddenEventId = document.querySelector("#hiddenEventId")
 
 const initEvents = () => {
     const eventsContainer = document.querySelector("#events")
     // Initial event display
     const initialEventDisplay = eventsHTML.createEventsContainer()
     eventsRendering.renderEvents(eventsContainer, initialEventDisplay)
+    // Get userId for activeUser
+    const activeUserId = sessionStorage.getItem("activeUser")
     eventsAPI.getEvents(activeUserId)
         .then(events => {
             copyAndDisplayEvents(events)
@@ -62,16 +61,21 @@ const initEvents = () => {
             if (eventTitleInput.value === "" || eventDateInput.value === "" || eventLocationInput.value === "") {
                 alert("Please fill out all fields")
             } else {
+                // Get userId for activeUser
+                const activeUserId = sessionStorage.getItem("activeUser")
                 // Create new event
                 const newEvent = createNewEvent(eventTitleInput, eventDateInput, eventLocationInput, activeUserId)
                 eventsAPI.saveNewEvent(newEvent)
+                    // .then(() => {
+                    //     const eventForm = document.querySelector("#eventForm")
+                    //     eventForm.innerHTML = ""
+                    // })
                     .then(() => {
-                        const eventForm = document.querySelector("#eventForm")
-                        eventForm.innerHTML = ""
+                        // Get userId for activeUser
+                        const activeUserId = sessionStorage.getItem("activeUser")
+                        eventsAPI.getEvents(activeUserId)
                     })
-                    .then(() => (eventsAPI.getEvents(activeUserId)))
                     .then(events => {
-                        console.log(events)
                         listOfEvents.innerHTML = ""
                         copyAndDisplayEvents(events)
                     })
@@ -89,8 +93,13 @@ const initEvents = () => {
             if (confirmDeletion) {
                 const eventToDelete = event.target.id.split("-")[1]
                 eventsAPI.deleteEvent(eventToDelete)
-                    .then(() => (eventsAPI.getEvents(activeUserId)))
+                    .then(() => {
+                        // Get userId for activeUser
+                        const activeUserId = sessionStorage.getItem("activeUser")
+                        eventsAPI.getEvents(activeUserId)
+                    })
                     .then(events => {
+                        console.log(events)
                         listOfEvents.innerHTML = ""
                         copyAndDisplayEvents(events)
                     })
