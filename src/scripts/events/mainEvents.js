@@ -5,16 +5,20 @@ import eventsAPI from "./dataEvents";
 // Get a reference to the hidden Id field for editing and sorting purposes
 // const hiddenEventId = document.querySelector("#hiddenEventId")
 
-const initEvents = () => {
+const initEvents = (activeUserId) => {
     const eventsContainer = document.querySelector("#events")
     // Initial event display
     const initialEventDisplay = eventsHTML.createEventsContainer()
     eventsRendering.renderEvents(eventsContainer, initialEventDisplay)
     // Get userId for activeUser
-    const activeUserId = sessionStorage.getItem("activeUser")
+    // const activeUserId = sessionStorage.getItem("activeUser")
     eventsAPI.getEvents(activeUserId)
         .then(events => {
-            copyAndDisplayEvents(events)
+            events.forEach(event => {
+                const HTMLVersion = eventsHTML.createEventRepresentation(event)
+                eventsRendering.renderEvents(listOfEvents, HTMLVersion)
+            })
+            // copyAndDisplayEvents(events)
         })
 
     const eventsDisplay = document.querySelector("#eventsDisplay")
@@ -25,15 +29,15 @@ const initEvents = () => {
         const descendingEvents = eventsArray.sort((a, b) => b.date - a.date)
         return descendingEvents
     }
-    // Make a copy of the events array and apply sorting
-    const copyAndDisplayEvents = (events) => {
-        const copiedEventsArray = [...events]
-        const sortedCopiedEvents = sortEventsById(copiedEventsArray)
-        sortedCopiedEvents.forEach(event => {
-            const HTMLVersion = eventsHTML.createEventRepresentation(event)
-            eventsRendering.renderEvents(listOfEvents, HTMLVersion)
-        })
-    }
+    // // Make a copy of the events array and apply sorting
+    // const copyAndDisplayEvents = (events) => {
+    //     const copiedEventsArray = [...events]
+    //     const sortedCopiedEvents = sortEventsById(copiedEventsArray)
+    //     sortedCopiedEvents.forEach(event => {
+    //         const HTMLVersion = eventsHTML.createEventRepresentation(event)
+    //         eventsRendering.renderEvents(listOfEvents, HTMLVersion)
+    //     })
+    // }
 
     // Function to create new event
     const createNewEvent = (eventTitle, eventDate, eventLocation, activeUserId) => {
@@ -62,7 +66,7 @@ const initEvents = () => {
                 alert("Please fill out all fields")
             } else {
                 // Get userId for activeUser
-                const activeUserId = sessionStorage.getItem("activeUser")
+                // const activeUserId = sessionStorage.getItem("activeUser")
                 // Create new event
                 const newEvent = createNewEvent(eventTitleInput, eventDateInput, eventLocationInput, activeUserId)
                 eventsAPI.saveNewEvent(newEvent)
@@ -72,12 +76,17 @@ const initEvents = () => {
                     // })
                     .then(() => {
                         // Get userId for activeUser
-                        const activeUserId = sessionStorage.getItem("activeUser")
-                        eventsAPI.getEvents(activeUserId)
+                        // const activeUserId = sessionStorage.getItem("activeUser")
+                        console.log(activeUserId)
+                        return eventsAPI.getEvents(activeUserId)
                     })
                     .then(events => {
-                        listOfEvents.innerHTML = ""
-                        copyAndDisplayEvents(events)
+                        console.log(events)
+                        // listOfEvents.innerHTML = ""
+                        events.forEach(event => {
+                            const HTMLVersion = eventsHTML.createEventRepresentation(event)
+                            eventsRendering.renderEvents(listOfEvents, HTMLVersion)
+                        })
                     })
             }
         } else {
@@ -90,18 +99,18 @@ const initEvents = () => {
         if (event.target.id.startsWith("delete")) {
             // Ask user to confirm deletion request before executing
             const confirmDeletion = confirm("Do you want to delete this event?")
-            if (confirmDeletion) {
+            if (confirmDeletion === true) {
                 const eventToDelete = event.target.id.split("-")[1]
                 eventsAPI.deleteEvent(eventToDelete)
                     .then(() => {
                         // Get userId for activeUser
-                        const activeUserId = sessionStorage.getItem("activeUser")
+                        // const activeUserId = sessionStorage.getItem("activeUser")
                         eventsAPI.getEvents(activeUserId)
                     })
                     .then(events => {
                         console.log(events)
-                        listOfEvents.innerHTML = ""
-                        copyAndDisplayEvents(events)
+                        // listOfEvents.innerHTML = ""
+                        // copyAndDisplayEvents(events)
                     })
             }
         }
