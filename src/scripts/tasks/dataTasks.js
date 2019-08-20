@@ -21,17 +21,22 @@ const API = {
             .then(response => response.json())
     },
     // edit button needs (object) and / id
-    editTask(task) {
-        return fetch(`http://localhost:8088/tasks/${task.id}`, {
+    editTask(task, id) {
+        return fetch(`http://localhost:8088/tasks/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(task)
         })
+        .then(res => res.json())
+        .then(() => {
+            const hiddenId = document.querySelector("#taskId")
+            hiddenId.value = ""
+        })
     },
-    getSingleTask(hidden) {
-        return fetch(`http://localhost:8088/tasks/${hidden}`)
+    getSingleTask(id) {
+        return fetch(`http://localhost:8088/tasks/${id}`)
             .then(response => response.json())
     }
 }

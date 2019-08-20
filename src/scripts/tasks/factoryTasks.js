@@ -1,6 +1,7 @@
 const tasksHTML = {
     tasksContainerHTML() {
         return `
+            <input type="hidden" id="taskId" value=""/>
             <h2>Tasks</h2>
             <div id="clearTaskDisplay">
                 <button id="createTask">Create New Task</button>
@@ -12,7 +13,6 @@ const tasksHTML = {
     createNewTaskForm() {
         return `
             <section id="createNewTaskForm">
-            <input type="hidden" id="taskId" value=""/>
             <h3>Create New Task</h3>
             <fieldset>
                 <label for="taskName">Name of Task</label>    
@@ -23,6 +23,7 @@ const tasksHTML = {
                 <input type="date" name="taskCompletionDate" id="taskCompletionDate">
             </fieldset>
             <button id="saveTask">Save Task</button>
+            </section>
         `
     },
     createTasksList(taskObject, completedStatus) {

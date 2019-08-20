@@ -27,9 +27,22 @@ const createNewTaskList = (title, date, userId) => {
         "userId": userId
     }
 }
+// const taskName = document.querySelector("#taskName")
+// const taskCompletionDate = document.querySelector("#taskCompletionDate")
+// const hiddenId = document.querySelector("#taskId")
+
+// const updateFields = task => {
+//     return fetch (`http://localhost:8088/tasks/${task}`)
+//     .then(response => response.json())
+//     .then(task => {
+//         hiddenId.value = task.id
+//         taskName.value = task.title
+//         taskCompletionDate.value = task.completed
+//     })
+// }
 
 const initTasks = () => {
-    // renders tast container
+    // renders task container
     const tasksContainer = document.querySelector("#tasks")
     const taskshtml = tasksHTML.tasksContainerHTML()
     renderTasks(tasksContainer, taskshtml)
@@ -65,28 +78,54 @@ const initTasks = () => {
         } else if (event.target.id.startsWith("deleteButton")) {
             const taskToDelete = event.target.id.split("_")[1]
             API.deleteTask(taskToDelete)
-            .then(() => {
-                tasksContainer.innerHTML = ""
+                .then(() => {
+                    tasksContainer.innerHTML = ""
                     const taskshtml = tasksHTML.tasksContainerHTML()
                     renderTasks(tasksContainer, taskshtml)
                     getTasks()
-            })
+                })
         } else if (event.target.id.startsWith("editButton")) {
             const taskToEdit = event.target.id.split("_")[1]
             console.log(taskToEdit)
+            // get corresponding resource from the API
             API.getSingleTask(taskToEdit)
-            .then(task => {
-                const taskName = document.querySelector("#taskName")
-                const taskCompletionDate = document.querySelector("#taskCompletionDate")
-                const hiddenId = document.querySelector("#taskId")
-                hiddenId.value = task.id
-                taskName.value = task.title
-                taskCompletionDate.value = task.completed
-            })
-
-            // API.editTask(taskToEdit)
+                // Render Form to the DOM with input fields
+                .then(() => {
+                    const editTaskHTML = tasksHTML.createNewTaskForm()
+                    // rendering the task form to the dom
+                    renderTasks(tasksContainer, editTaskHTML)
+                })
+                // Populate input fields in the DOM to represent the current state of the resource
+                .then(() => {
+                    const taskName = document.querySelector("#taskName")
+                    const taskCompletionDate = document.querySelector("#taskCompletionDate")
+                    const hiddenId = document.querySelector("#taskId")
+                    const updateFields = task => {
+                        return fetch(`http://localhost:8088/tasks/${task}`)
+                            .then(response => response.json())
+                            .then(task => {
+                                hiddenId.value = task.id
+                                taskName.value = task.title
+                                taskCompletionDate.value = task.completed
+                            })
+                    }
+                    updateFields(taskToEdit)
+                })
         }
     })
 }
+
+// make sure the form is rendered to the dom where the hidden id exists
+
+// Have an event handler on some affordance for a user to edit
+// a particular resource,++++
+// Get the corresponding resource from the API++++
+// Render a form to the DOM with input fields++++
+// Populate input fields in the DOM to represent the current state of the resource++++
+// Have an event handler on a button to allow the user to save changes
+// Collect the user input from the DOM
+// Send a request to the API to update the correct resource
+// Redirect the user to either a list view, or a detail view
+// of the resource s/he just modified
 
 export default initTasks
