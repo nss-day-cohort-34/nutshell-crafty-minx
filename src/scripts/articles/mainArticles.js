@@ -7,6 +7,16 @@ const initArticles = (activeUserId) => {
 
 const welcomeConverted = factoryArticles.factoryArticlesWelcome();
 domArticles.renderToArticles(welcomeConverted);
+postsContainer.innerHTML = ""
+// const activeUserId = sessionStorage.getItem("activeUser")
+articlesData.articleFetch(activeUserId).then(articles => {
+  for (const article of articles) {
+    const postedArticleConverted = factoryArticles.factoryPostedArticle(
+      article
+    );
+    domArticles.renderToPostsContainer(postedArticleConverted);
+  }
+});
 
 const newArticleButton = document.querySelector("#newArticleButton");
 
@@ -15,16 +25,6 @@ const newArticleButton = document.querySelector("#newArticleButton");
 newArticleButton.addEventListener("click", () => {
   const newArticleConverted = factoryArticles.factoryNewArticle();
   domArticles.renderToArticlesContainer(newArticleConverted);
-  postsContainer.innerHTML = ""
-  // const activeUserId = sessionStorage.getItem("activeUser")
-  articlesData.articleFetch(activeUserId).then(articles => {
-    for (const article of articles) {
-      const postedArticleConverted = factoryArticles.factoryPostedArticle(
-        article
-      );
-      domArticles.renderToPostsContainer(postedArticleConverted);
-    }
-  });
 });
 
 const articles = document.querySelector("#articles");
