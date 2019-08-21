@@ -13,7 +13,7 @@ const initMessages = (activeUserId) => {
     //Initial messages display upon log in
     const initialMessageDisplay = messageFactory.newMessageFieldHTML()
     messagesRendering.renderNewMessageField(messagesContainer, initialMessageDisplay)
-    messagesAPI.getAllMessages(activeUserId)
+    messagesAPI.getAllMessages()
         .then(messages => {
             const messagesList = document.querySelector("#listOfMessages")
             const newMessageInput = document.querySelector("#newMessageInput")
@@ -37,7 +37,7 @@ const initMessages = (activeUserId) => {
                 }
 
                 messagesAPI.postMessage(newMessageObject)
-                    .then(() => messagesAPI.getAllMessages(activeUserId))
+                    .then(() => messagesAPI.getAllMessages)
                     .then(messages => {
                         const messagesList = document.querySelector("#listOfMessages")
                         const newMessageInput = document.querySelector("#newMessageInput")
@@ -59,7 +59,7 @@ const initMessages = (activeUserId) => {
                 messagesAPI.editMessage(updatedMessageObject)
                     .then(() => {
                         document.querySelector("#newMessageInput").value = ""
-                        return messagesAPI.getAllMessages(activeUserId)
+                        return messagesAPI.getAllMessages
                     })
                     .then(messages => {
                         const messagesList = document.querySelector("#listOfMessages")
@@ -118,7 +118,7 @@ const initMessages = (activeUserId) => {
 //                         document.querySelecto r("#hiddenId").value = ""
 //                     })
 //             }
-//         } messagesAPI.getAllMessages(activeUserId)
+//         } messagesAPI.getAllMessages()
     // })
 }
 export default initMessages

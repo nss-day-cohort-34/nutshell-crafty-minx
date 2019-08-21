@@ -1,6 +1,6 @@
 const messagesAPI = {
-    getAllMessages(activeUserId) {
-        return fetch(`http://localhost:8088/messages?userId=${activeUserId}&_expand=user`)
+    getAllMessages() {
+        return fetch("http://localhost:8088/messages?_expand=user")
             .then(response => response.json())
     },
 
