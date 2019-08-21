@@ -2,42 +2,23 @@ import eventsRendering from "./domEvents";
 import eventsHTML from "./factoryEvents";
 import eventsAPI from "./dataEvents";
 
-// Get a reference to the hidden Id field for editing and sorting purposes
-// const hiddenEventId = document.querySelector("#hiddenEventId")
+
 
 const initEvents = (activeUserId) => {
     const eventsContainer = document.querySelector("#events")
     // Initial event display
     const initialEventDisplay = eventsHTML.createEventsContainer()
     eventsRendering.renderEvents(eventsContainer, initialEventDisplay)
-    // Get userId for activeUser
-    // const activeUserId = sessionStorage.getItem("activeUser")
     eventsAPI.getEvents(activeUserId)
         .then(events => {
             events.forEach(event => {
                 const HTMLVersion = eventsHTML.createEventRepresentation(event)
                 eventsRendering.renderEvents(listOfEvents, HTMLVersion)
             })
-            // copyAndDisplayEvents(events)
         })
 
     const eventsDisplay = document.querySelector("#eventsDisplay")
     const listOfEvents = document.querySelector("#listOfEvents")
-
-    // Sort events in descending order by ID
-    const sortEventsById = (eventsArray) => {
-        const descendingEvents = eventsArray.sort((a, b) => b.date - a.date)
-        return descendingEvents
-    }
-    // // Make a copy of the events array and apply sorting
-    // const copyAndDisplayEvents = (events) => {
-    //     const copiedEventsArray = [...events]
-    //     const sortedCopiedEvents = sortEventsById(copiedEventsArray)
-    //     sortedCopiedEvents.forEach(event => {
-    //         const HTMLVersion = eventsHTML.createEventRepresentation(event)
-    //         eventsRendering.renderEvents(listOfEvents, HTMLVersion)
-    //     })
-    // }
 
     // Function to create new event
     const createNewEvent = (eventTitle, eventDate, eventLocation, activeUserId) => {
@@ -52,11 +33,12 @@ const initEvents = (activeUserId) => {
     eventsContainer.addEventListener("click", () => {
         // User clicks on "Don't have an account?"
         if (event.target.id.startsWith("createEvent")) {
-            eventsDisplay.innerHTML = ""
+            // eventsDisplay.innerHTML = ""
+            const eventFormContainer = document.querySelector("#eventFormContainer")
             const eventsForm = eventsHTML.createNewEventForm()
-            eventsRendering.renderEvents(eventsContainer, eventsForm)
-            // Logic to save new event
-        } else if (event.target.id.startsWith("saveNewEvent")) {
+            eventsRendering.renderEvents(eventFormContainer, eventsForm)
+            // Logic to save event
+        } else if (event.target.id.startsWith("saveEvent")) {
             // Get reference to input fields
             const eventTitleInput = document.querySelector("#eventTitle")
             const eventDateInput = document.querySelector("#eventDate")
@@ -64,10 +46,8 @@ const initEvents = (activeUserId) => {
             // Check for empty fields before creating event. Display an alert if any field is blank
             if (eventTitleInput.value === "" || eventDateInput.value === "" || eventLocationInput.value === "") {
                 alert("Please fill out all fields")
+            // } else if {
             } else {
-                // Get userId for activeUser
-                // const activeUserId = sessionStorage.getItem("activeUser")
-                // Create new event
                 const newEvent = createNewEvent(eventTitleInput, eventDateInput, eventLocationInput, activeUserId)
                 eventsAPI.saveNewEvent(newEvent)
                     // .then(() => {
@@ -75,14 +55,13 @@ const initEvents = (activeUserId) => {
                     //     eventForm.innerHTML = ""
                     // })
                     .then(() => {
-                        // Get userId for activeUser
-                        // const activeUserId = sessionStorage.getItem("activeUser")
-                        console.log(activeUserId)
+                        eventTitleInput.value = ""
+                        eventDateInput.value = ""
+                        eventLocationInput.value = ""
                         return eventsAPI.getEvents(activeUserId)
                     })
                     .then(events => {
-                        console.log(events)
-                        // listOfEvents.innerHTML = ""
+                        listOfEvents.innerHTML = ""
                         events.forEach(event => {
                             const HTMLVersion = eventsHTML.createEventRepresentation(event)
                             eventsRendering.renderEvents(listOfEvents, HTMLVersion)
@@ -103,16 +82,46 @@ const initEvents = (activeUserId) => {
                 const eventToDelete = event.target.id.split("-")[1]
                 eventsAPI.deleteEvent(eventToDelete)
                     .then(() => {
-                        // Get userId for activeUser
-                        // const activeUserId = sessionStorage.getItem("activeUser")
-                        eventsAPI.getEvents(activeUserId)
+                        return eventsAPI.getEvents(activeUserId)
                     })
                     .then(events => {
-                        console.log(events)
-                        // listOfEvents.innerHTML = ""
-                        // copyAndDisplayEvents(events)
+                        listOfEvents.innerHTML = ""
+                        events.forEach(event => {
+                            const HTMLVersion = eventsHTML.createEventRepresentation(event)
+                            eventsRendering.renderEvents(listOfEvents, HTMLVersion)
+                        })
                     })
             }
+        } else if (event.target.id.startsWith("edit")) {
+            const eventToEdit = event.target.id.split("-")[1]
+            // Get a reference to the hidden Id field for editing and sorting purposes
+            const hiddenEventId = document.querySelector("#hiddenEventId")
+            eventsAPI.getSingleEvent(eventToEdit)
+                .then((event) => {
+                    const eventFormContainer = document.querySelector("#eventFormContainer")
+                    const eventsForm = eventsHTML.createNewEventForm()
+                    eventsRendering.renderEvents(eventFormContainer, eventsForm)
+                    return event
+                })
+                .then(event => {
+                    const eventTitleInput = document.querySelector("#eventTitle")
+        const eventDateInput = document.querySelector("#eventDate")
+        const eventLocationInput = document.querySelector("#eventLocation")
+                    hiddenEventId.value = event.id
+                    eventTitleInput.value = event.title
+                    eventDateInput.value = event.date
+                    eventLocationInput.value = event.location
+                })
+            // .then(() => {
+            //     return eventsAPI.getEvents(activeUserId)
+            //         .then(events => {
+            //             listOfEvents.innerHTML = ""
+            //             events.forEach(event => {
+            //                 const HTMLVersion = eventsHTML.createEventRepresentation(event)
+            //                 eventsRendering.renderEvents(listOfEvents, HTMLVersion)
+            //             })
+            //         })
+            // })
         }
     })
 }
