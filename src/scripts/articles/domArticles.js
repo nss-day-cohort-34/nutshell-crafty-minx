@@ -2,12 +2,12 @@ const domArticles = {
 
     renderToArticles(HTMLString) {
         const articles = document.querySelector("#articles")
-        articles.innerHTML += HTMLString
+        articles.innerHTML = HTMLString
     },
 
     renderToArticlesContainer(HTMLString) {
         const articlesContainer = document.querySelector("#articlesContainer")
-        articlesContainer.innerHTML += HTMLString
+        articlesContainer.innerHTML = HTMLString
     },
 
     renderToPostsContainer(HTMLString) {

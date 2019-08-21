@@ -15,6 +15,7 @@ const newArticleButton = document.querySelector("#newArticleButton");
 newArticleButton.addEventListener("click", () => {
   const newArticleConverted = factoryArticles.factoryNewArticle();
   domArticles.renderToArticlesContainer(newArticleConverted);
+  postsContainer.innerHTML = ""
   // const activeUserId = sessionStorage.getItem("activeUser")
   articlesData.articleFetch(activeUserId).then(articles => {
     for (const article of articles) {
