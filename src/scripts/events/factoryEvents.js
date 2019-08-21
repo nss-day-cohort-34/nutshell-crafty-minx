@@ -5,16 +5,16 @@ const eventsHTML = {
             <h2>Events</h2>
             <section id="eventsDisplay">
                 <button id="createEvent">Create Event</button>
-                <div id="listOfEvents">
+                <div id="eventFormContainer">
+                   <input type="hidden" id="hiddenEventId" value="" />
                 </div>
+                <div id="listOfEvents"></div>
             </section>
         `
     },
     createNewEventForm() {
         return `
         <section id="eventForm">
-            <h4>Create New Event</h4>
-            <input type="hidden" id="hiddenEventId" value="" />
             <fieldset>
             <label for="eventTitle">Event Title</label>    
             <input type="text" id="eventTitle" name="eventTitle"></input>  
@@ -27,7 +27,7 @@ const eventsHTML = {
             <label for="eventLocation">Event Location</label>    
             <input type="text" id="eventLocation" name="eventLocation"></input>  
             </fieldset>
-            <button id="saveNewEvent">Save New Event</button>
+            <button id="saveEvent">Save Event</button>
         </section>
            `
     },

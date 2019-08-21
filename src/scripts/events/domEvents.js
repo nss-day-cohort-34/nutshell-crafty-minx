@@ -5,6 +5,9 @@ const listOfEvents = document.querySelector("#listOfEvents")
 const eventsRendering = {
     renderEvents(location, HTMLString) {
         location.innerHTML += HTMLString
+    },
+    renderOneItem(location, HTMLString) {
+        location.innerHTML = HTMLString
     }
 }
 

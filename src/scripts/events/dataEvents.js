@@ -1,6 +1,6 @@
 const eventsAPI = {
     getEvents(activeUserId) {
-        return fetch(`http://localhost:8088/events?userId=${activeUserId}`)
+        return fetch(`http://localhost:8088/events?userId=${activeUserId}&_sort=date&_order=asc`)
             .then(response => response.json())
     },
     saveNewEvent(newEvent) {
@@ -29,8 +29,8 @@ const eventsAPI = {
         })
             .then(response => response.json())
     },
-    getSingleEvent(event) {
-        return fetch(`http://localhost:8088/events/${event.id}`)
+    getSingleEvent(eventId) {
+        return fetch(`http://localhost:8088/events/${eventId}`)
             .then(response => response.json())
     }
 }
