@@ -8,10 +8,11 @@ import initTasks from "./tasks/mainTasks";
 const dashboardFunctions = () => {
     const dashboardHTML = welcomePageHTML.createDashboard()
     renderFunctions.renderDashboard(dashboardHTML)
-    // initTasks()
-    initEvents()
-    // initArticles()
-    // initMessages()
+    const activeUserId = parseInt(sessionStorage.getItem("activeUser"))
+    // initTasks(activeUserId)
+    initEvents(activeUserId)
+    // initArticles(activeUserId)
+    initMessages(activeUserId)
 }
 
 export default dashboardFunctions
