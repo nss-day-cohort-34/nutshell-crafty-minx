@@ -29,7 +29,7 @@ const initMessages = (activeUserId) => {
         if (event.target.id === "sendMessage") {
             const chatMessage = document.querySelector("#newMessageInput").value
             const hiddenMessageId = document.querySelector("#hiddenId")
-            if (chatMessage !== "" && hiddenMessageId === "") {
+            if (chatMessage !== "" && hiddenMessageId.value === "") {
                 const newMessageObject =
                 {
                     userId: activeUserId,
