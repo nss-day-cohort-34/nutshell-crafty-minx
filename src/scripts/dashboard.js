@@ -11,7 +11,7 @@ const dashboardFunctions = () => {
     const activeUserId = parseInt(sessionStorage.getItem("activeUser"))
     // initTasks(activeUserId)
     initEvents(activeUserId)
-    // initArticles(activeUserId)
+    initArticles(activeUserId)
     // initMessages(activeUserId)
 }
 
