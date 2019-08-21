@@ -9,8 +9,8 @@ const dashboardFunctions = () => {
     const dashboardHTML = welcomePageHTML.createDashboard()
     renderFunctions.renderDashboard(dashboardHTML)
     const activeUserId = parseInt(sessionStorage.getItem("activeUser"))
-    // initTasks(activeUserId)
-    // initEvents(activeUserId)
+    initTasks(activeUserId)
+    initEvents(activeUserId)
     initArticles(activeUserId)
     // initMessages(activeUserId)
 }
