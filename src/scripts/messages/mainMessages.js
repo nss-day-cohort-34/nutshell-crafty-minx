@@ -37,7 +37,9 @@ const initMessages = (activeUserId) => {
                 }
 
                 messagesAPI.postMessage(newMessageObject)
-                    .then(() => messagesAPI.getAllMessages)
+                    .then(() => {
+                        return messagesAPI.getAllMessages()
+                    })
                     .then(messages => {
                         const messagesList = document.querySelector("#listOfMessages")
                         const newMessageInput = document.querySelector("#newMessageInput")
@@ -59,7 +61,7 @@ const initMessages = (activeUserId) => {
                 messagesAPI.editMessage(updatedMessageObject)
                     .then(() => {
                         document.querySelector("#newMessageInput").value = ""
-                        return messagesAPI.getAllMessages
+                        return messagesAPI.getAllMessages()
                     })
                     .then(messages => {
                         const messagesList = document.querySelector("#listOfMessages")
@@ -67,12 +69,11 @@ const initMessages = (activeUserId) => {
                         messages.forEach(message => {
                             messagesList.innerHTML += messageFactory.messageHTML(message, activeUserId)
                         })
-                        })
-                    }
+                    })
+            }
         }
-        }
+    }
     )
-
 
     // Edit button event listener -- save to database and render edited message to DOM
     const updateFormField = messageId => {
@@ -95,30 +96,30 @@ const initMessages = (activeUserId) => {
         }
     })
 
-//    sendMessage.addEventListener("click", event => {
-//         const hiddenMessageId = document.querySelector("#hiddenId")
+    //    sendMessage.addEventListener("click", event => {
+    //         const hiddenMessageId = document.querySelector("#hiddenId")
 
-//         if (hiddenMessageId.value === "") {
-//             editMessage(messageId)
-//         } else {
-//             const editMessage = id => {
-//                 const updatedMessageObject = {
-//                     userId: activeUserId,
-//                     message: document.querySelector("#newMessageInput").value
-//                 }
-//                 fetch(`http://localhost:8088/messages/${id}?_expand=user`, {
-//                     method: "PUT",
-//                     headers: {
-//                         "Content-Type": "application/json"
-//                     },
-//                     body: JSON.stringify(messageObject)
-//                 })
-//                     .then(response => response.json())
-//                     .then(() => {
-//                         document.querySelecto r("#hiddenId").value = ""
-//                     })
-//             }
-//         } messagesAPI.getAllMessages()
+    //         if (hiddenMessageId.value === "") {
+    //             editMessage(messageId)
+    //         } else {
+    //             const editMessage = id => {
+    //                 const updatedMessageObject = {
+    //                     userId: activeUserId,
+    //                     message: document.querySelector("#newMessageInput").value
+    //                 }
+    //                 fetch(`http://localhost:8088/messages/${id}?_expand=user`, {
+    //                     method: "PUT",
+    //                     headers: {
+    //                         "Content-Type": "application/json"
+    //                     },
+    //                     body: JSON.stringify(messageObject)
+    //                 })
+    //                     .then(response => response.json())
+    //                     .then(() => {
+    //                         document.querySelecto r("#hiddenId").value = ""
+    //                     })
+    //             }
+    //         } messagesAPI.getAllMessages()
     // })
 }
 export default initMessages
