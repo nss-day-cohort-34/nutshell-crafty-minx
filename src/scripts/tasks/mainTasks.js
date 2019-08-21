@@ -20,16 +20,16 @@ const createNewTaskList = (title, date, userId) => {
 }
 // const taskName = document.querySelector("#taskName")
 // const taskCompletionDate = document.querySelector("#taskCompletionDate")
-// const hiddenId = document.querySelector("#taskId")
+const hiddenId = document.querySelector("#taskId")
 
 const updateFields = task => {
-    return fetch (`http://localhost:8088/tasks/${task}`)
-    .then(response => response.json())
-    .then(task => {
-        hiddenId.value = task.id
-        taskName.value = task.title
-        taskCompletionDate.value = task.completed
-    })
+    return fetch(`http://localhost:8088/tasks/${task}`)
+        .then(response => response.json())
+        .then(task => {
+            hiddenId.value = task.id
+            taskName.value = task.title
+            taskCompletionDate.value = task.completed
+        })
 }
 const getTasks = (activeUserId) => {
     const list = document.querySelector("#listOfTasks")
@@ -61,6 +61,13 @@ const initTasks = (activeUserId) => {
             const newTaskForm = tasksHTML.createNewTaskForm("Create New Task")
             // rendering the task form to the dom
             renderTasks(tasksContainer, newTaskForm)
+
+        } if (hiddenId.value !== "") {
+            const taskName = document.querySelector("#taskName")
+            const taskCompletionDate = document.querySelector("#taskCompletionDate")
+            const editedObject = createNewTaskList(taskName.value, taskCompletionDate.value, userId)
+            API.editTask(hiddenId.value, editedObject)
+
         } else if (event.target.id.startsWith("saveTask")) {
             // getting a ref to the inputs
             const taskName = document.querySelector("#taskName")
@@ -85,7 +92,12 @@ const initTasks = (activeUserId) => {
                     renderTasks(tasksContainer, taskshtml)
                     getTasks(activeUserId)
                 })
-        } else if (event.target.id.startsWith("editButton")) {
+
+        }
+    })
+
+    tasksContainer.addEventListener("click", event => {
+        if (event.target.id.startsWith("editButton")) {
             const taskToEdit = event.target.id.split("_")[1]
             console.log(taskToEdit)
             // get corresponding resource from the API
@@ -102,6 +114,7 @@ const initTasks = (activeUserId) => {
                     const taskName = document.querySelector("#taskName")
                     const taskCompletionDate = document.querySelector("#taskCompletionDate")
                     const hiddenId = document.querySelector("#taskId")
+
                     const updateFields = task => {
                         return fetch(`http://localhost:8088/tasks/${task}`)
                             .then(response => response.json())

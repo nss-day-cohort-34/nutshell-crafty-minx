@@ -22,7 +22,7 @@ const tasksHTML = {
                 <label for="taskCompletionDate">Expected Completion Date</label>
                 <input type="date" name="taskCompletionDate" id="taskCompletionDate">
             </fieldset>
-            <button id="saveTask">Save Task</button>
+            <button id="saveTask">Save</button>
             </section>
         `
     },
