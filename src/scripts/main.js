@@ -1,13 +1,10 @@
-import initRegistration from "./registration/mainRegistration.js";
-import initTasks from "./tasks/mainTasks.js"
-import initEvents from "./events/mainEvents.js";
+import initRegistration from "./registration/mainRegistration";
+import dashboardFunctions from "./dashboard";
 
-/*----------------------REGISTRATION----------------------*/
-initRegistration()
-/*----------------------TASKS----------------------*/
-// initTasks()
-/*----------------------EVENTS----------------------*/
-// initEvents()
-/*----------------------ARTICLES----------------------*/
-/*----------------------MESSAGES----------------------*/
-/*----------------------FRIENDS (MAYBE)----------------------*/
+let activeUserId = sessionStorage.getItem("activeUser")
+if (activeUserId === null) {
+    initRegistration()
+} else {
+    // Render initial display
+    dashboardFunctions()
+}
