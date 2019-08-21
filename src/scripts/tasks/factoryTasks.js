@@ -30,10 +30,25 @@ const tasksHTML = {
         return `
             <section id="taskListName">Title: ${taskObject.title}</section>
             <section id="taskCompletionDate">Expected Completion Date: ${taskObject.date}</section>
-            // make below line a checkbox //
             <section id="taskCompletion">Completed: <input type="checkbox" id="check" value="${taskObject.completed}" ${taskObject.completed === true ? "checked" : ""}></section>
             <button id="editButton_${taskObject.id}">Edit</button>
             <button id="deleteButton_${taskObject.id}">Delete</button>
+        `
+    },
+    editTaskForm() {
+        return `
+        <section id="editTaskForm">
+        <h3>Edit Task</h3>
+        <fieldset>
+            <label for="taskName">Name of Task</label>    
+            <input type="text" id="editTaskName" name="taskName"></input> 
+        </fieldset>
+        <fieldset>
+            <label for="taskCompletionDate">Expected Completion Date</label>
+            <input type="date" name="taskCompletionDate" id="editTaskCompletionDate">
+        </fieldset>
+        <button id="saveEditedTask">Save Changes</button>
+        </section>
         `
     }
 }

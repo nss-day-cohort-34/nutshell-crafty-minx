@@ -72,6 +72,7 @@ const initTasks = () => {
                     // clearing the container and rerendering the task container
                     // tasksContainer.innerHTML = ""
                     const taskshtml = tasksHTML.tasksContainerHTML()
+                    tasksContainer.innerHTML = ""
                     renderTasks(tasksContainer, taskshtml)
                     getTasks()
                 })
@@ -91,9 +92,10 @@ const initTasks = () => {
             API.getSingleTask(taskToEdit)
                 // Render Form to the DOM with input fields
                 .then(() => {
-                    const editTaskHTML = tasksHTML.createNewTaskForm()
-                    // rendering the task form to the dom
-                    renderTasks(tasksContainer, editTaskHTML)
+                    const editTaskHTML = tasksHTML.tasksContainerHTML()
+                    const editTaskForm = document.querySelector("#editTaskForm")
+                    // rendering the edit task form to the dom
+                    renderTasks(editTaskHTML, editTaskForm)
                 })
                 // Populate input fields in the DOM to represent the current state of the resource
                 .then(() => {
