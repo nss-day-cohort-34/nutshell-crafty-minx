@@ -34,23 +34,23 @@ const tasksHTML = {
             <button id="editButton_${taskObject.id}">Edit</button>
             <button id="deleteButton_${taskObject.id}">Delete</button>
         `
-    },
-    editTaskForm() {
-        return `
-        <section id="editTaskForm">
-        <h3>Edit Task</h3>
-        <fieldset>
-            <label for="taskName">Name of Task</label>    
-            <input type="text" id="editTaskName" name="taskName"></input> 
-        </fieldset>
-        <fieldset>
-            <label for="taskCompletionDate">Expected Completion Date</label>
-            <input type="date" name="taskCompletionDate" id="editTaskCompletionDate">
-        </fieldset>
-        <button id="saveEditedTask">Save Changes</button>
-        </section>
-        `
     }
+    // editTaskForm() {
+    //     return `
+    //     <section id="editTaskForm">
+    //     <h3>Edit Task</h3>
+    //     <fieldset>
+    //         <label for="taskName">Name of Task</label>
+    //         <input type="text" id="editTaskName" name="taskName"></input>
+    //     </fieldset>
+    //     <fieldset>
+    //         <label for="taskCompletionDate">Expected Completion Date</label>
+    //         <input type="date" name="taskCompletionDate" id="editTaskCompletionDate">
+    //     </fieldset>
+    //     <button id="saveEditedTask">Save Changes</button>
+    //     </section>
+    //     `
+    // }
 }
 
 export default tasksHTML

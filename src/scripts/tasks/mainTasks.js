@@ -22,15 +22,15 @@ const createNewTaskList = (title, date, userId) => {
 // const taskCompletionDate = document.querySelector("#taskCompletionDate")
 // const hiddenId = document.querySelector("#taskId")
 
-// const updateFields = task => {
-//     return fetch (`http://localhost:8088/tasks/${task}`)
-//     .then(response => response.json())
-//     .then(task => {
-//         hiddenId.value = task.id
-//         taskName.value = task.title
-//         taskCompletionDate.value = task.completed
-//     })
-// }
+const updateFields = task => {
+    return fetch (`http://localhost:8088/tasks/${task}`)
+    .then(response => response.json())
+    .then(task => {
+        hiddenId.value = task.id
+        taskName.value = task.title
+        taskCompletionDate.value = task.completed
+    })
+}
 const getTasks = (activeUserId) => {
     const list = document.querySelector("#listOfTasks")
     API.getTasks(activeUserId).then(tasksArray => {
@@ -92,10 +92,10 @@ const initTasks = (activeUserId) => {
             API.getSingleTask(taskToEdit)
                 // Render Form to the DOM with input fields
                 .then(() => {
-                    const editTaskHTML = tasksHTML.tasksContainerHTML()
-                    const editTaskForm = document.querySelector("#editTaskForm")
+                    const editTaskHTML = tasksHTML.createNewTaskForm()
                     // rendering the edit task form to the dom
-                    renderTasks(editTaskHTML, editTaskForm)
+                    renderTasks(tasksContainer, editTaskHTML)
+                    getTasks(activeUserId)
                 })
                 // Populate input fields in the DOM to represent the current state of the resource
                 .then(() => {
