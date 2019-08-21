@@ -12,7 +12,7 @@ const dashboardFunctions = () => {
     initTasks(activeUserId)
     initEvents(activeUserId)
     initArticles(activeUserId)
-    // initMessages(activeUserId)
+    initMessages(activeUserId)
 }
 
 export default dashboardFunctions
