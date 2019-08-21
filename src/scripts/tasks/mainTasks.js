@@ -6,18 +6,9 @@ import API from "./dataTasks.js";
 // const registrationContainer = document.querySelector("#registration")
 // const createNewTaskForm = document.querySelector("#createNewTaskForm")
 // const clearTaskDisplay = document.querySelector("#clearTaskDisplay")
-let activeUserId = sessionStorage.getItem("activeUser")
-console.log(activeUserId)
+// let activeUserId = sessionStorage.getItem("activeUser")
+// console.log(activeUserId)
 // get data and render it
-const getTasks = () => {
-    const list = document.querySelector("#listOfTasks")
-    API.getTasks(activeUserId).then(tasksArray => {
-        tasksArray.forEach(entry => {
-            const tasksList = tasksHTML.createTasksList(entry)
-            renderTasks(list, tasksList)
-        })
-    })
-}
 // this creates an object
 const createNewTaskList = (title, date, userId) => {
     return {
@@ -40,13 +31,22 @@ const createNewTaskList = (title, date, userId) => {
 //         taskCompletionDate.value = task.completed
 //     })
 // }
+const getTasks = (activeUserId) => {
+    const list = document.querySelector("#listOfTasks")
+    API.getTasks(activeUserId).then(tasksArray => {
+        tasksArray.forEach(entry => {
+            const tasksList = tasksHTML.createTasksList(entry)
+            renderTasks(list, tasksList)
+        })
+    })
+}
 
-const initTasks = () => {
+const initTasks = (activeUserId) => {
     // renders task container
     const tasksContainer = document.querySelector("#tasks")
     const taskshtml = tasksHTML.tasksContainerHTML()
     renderTasks(tasksContainer, taskshtml)
-    getTasks()
+    getTasks(activeUserId)
     // Capture Values of Input Fields by User and store in Function
     // Get reference to Task Form Container Buttons and Functionality
     // Capture User Input On createNewTaskForm
@@ -74,7 +74,7 @@ const initTasks = () => {
                     const taskshtml = tasksHTML.tasksContainerHTML()
                     tasksContainer.innerHTML = ""
                     renderTasks(tasksContainer, taskshtml)
-                    getTasks()
+                    getTasks(activeUserId)
                 })
         } else if (event.target.id.startsWith("deleteButton")) {
             const taskToDelete = event.target.id.split("_")[1]
@@ -83,7 +83,7 @@ const initTasks = () => {
                     tasksContainer.innerHTML = ""
                     const taskshtml = tasksHTML.tasksContainerHTML()
                     renderTasks(tasksContainer, taskshtml)
-                    getTasks()
+                    getTasks(activeUserId)
                 })
         } else if (event.target.id.startsWith("editButton")) {
             const taskToEdit = event.target.id.split("_")[1]
