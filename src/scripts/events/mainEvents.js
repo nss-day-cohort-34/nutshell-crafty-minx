@@ -2,8 +2,6 @@ import eventsRendering from "./domEvents";
 import eventsHTML from "./factoryEvents";
 import eventsAPI from "./dataEvents";
 
-
-
 const initEvents = (activeUserId) => {
     const eventsContainer = document.querySelector("#events")
     // Initial event display
@@ -29,6 +27,8 @@ const initEvents = (activeUserId) => {
             userId: activeUserId
         }
     }
+    const hiddenEventId = document.querySelector("#hiddenEventId")
+
     // Add event listener to create event button
     eventsContainer.addEventListener("click", () => {
         // User clicks on "Don't have an account?"
@@ -36,7 +36,7 @@ const initEvents = (activeUserId) => {
             // eventsDisplay.innerHTML = ""
             const eventFormContainer = document.querySelector("#eventFormContainer")
             const eventsForm = eventsHTML.createNewEventForm()
-            eventsRendering.renderEvents(eventFormContainer, eventsForm)
+            eventsRendering.renderOneItem(eventFormContainer, eventsForm)
             // Logic to save event
         } else if (event.target.id.startsWith("saveEvent")) {
             // Get reference to input fields
@@ -46,14 +46,9 @@ const initEvents = (activeUserId) => {
             // Check for empty fields before creating event. Display an alert if any field is blank
             if (eventTitleInput.value === "" || eventDateInput.value === "" || eventLocationInput.value === "") {
                 alert("Please fill out all fields")
-            // } else if {
-            } else {
+            } else if (hiddenEventId === "") {
                 const newEvent = createNewEvent(eventTitleInput, eventDateInput, eventLocationInput, activeUserId)
                 eventsAPI.saveNewEvent(newEvent)
-                    // .then(() => {
-                    //     const eventForm = document.querySelector("#eventForm")
-                    //     eventForm.innerHTML = ""
-                    // })
                     .then(() => {
                         eventTitleInput.value = ""
                         eventDateInput.value = ""
@@ -67,6 +62,28 @@ const initEvents = (activeUserId) => {
                             eventsRendering.renderEvents(listOfEvents, HTMLVersion)
                         })
                     })
+            } else {
+                const editedEvent = {
+                    id: hiddenEventId.value,
+                    title: eventTitle.value,
+                    date: eventDate.value,
+                    location: eventLocation.value,
+                    userId: activeUserId
+                }
+                eventsAPI.editEvent(editedEvent)
+                .then(() => {
+                    eventTitleInput.value = ""
+                    eventDateInput.value = ""
+                    eventLocationInput.value = ""
+                    return eventsAPI.getEvents(activeUserId)
+                })
+                .then(events => {
+                    listOfEvents.innerHTML = ""
+                    events.forEach(event => {
+                        const HTMLVersion = eventsHTML.createEventRepresentation(event)
+                        eventsRendering.renderEvents(listOfEvents, HTMLVersion)
+                    })
+                })
             }
         } else {
             event.stopPropagation()
@@ -100,28 +117,18 @@ const initEvents = (activeUserId) => {
                 .then((event) => {
                     const eventFormContainer = document.querySelector("#eventFormContainer")
                     const eventsForm = eventsHTML.createNewEventForm()
-                    eventsRendering.renderEvents(eventFormContainer, eventsForm)
+                    eventsRendering.renderOneItem(eventFormContainer, eventsForm)
                     return event
                 })
                 .then(event => {
                     const eventTitleInput = document.querySelector("#eventTitle")
-        const eventDateInput = document.querySelector("#eventDate")
-        const eventLocationInput = document.querySelector("#eventLocation")
+                    const eventDateInput = document.querySelector("#eventDate")
+                    const eventLocationInput = document.querySelector("#eventLocation")
                     hiddenEventId.value = event.id
                     eventTitleInput.value = event.title
                     eventDateInput.value = event.date
                     eventLocationInput.value = event.location
                 })
-            // .then(() => {
-            //     return eventsAPI.getEvents(activeUserId)
-            //         .then(events => {
-            //             listOfEvents.innerHTML = ""
-            //             events.forEach(event => {
-            //                 const HTMLVersion = eventsHTML.createEventRepresentation(event)
-            //                 eventsRendering.renderEvents(listOfEvents, HTMLVersion)
-            //             })
-            //         })
-            // })
         }
     })
 }
