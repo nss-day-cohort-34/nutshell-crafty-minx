@@ -44,7 +44,7 @@ factoryPostedArticle(object) {
     return `
     <h4>Title: ${object.title}</h4>
     <h5>Synopsis: ${object.synopsis}</h5>
-    <h5>URL: ${object.url}</h5>
+    <h5>URL: <a href="${object.url}">${object.url}</a></h5>
     <h6>Posted: ${object.timestamp}</h6>
     <div>
     <button class="button2" id="editButton--${object.id}">Edit</button>
