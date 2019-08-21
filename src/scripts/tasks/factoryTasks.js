@@ -10,10 +10,10 @@ const tasksHTML = {
             <section id="listOfTasks"></section>
             `
     },
-    createNewTaskForm() {
+    createNewTaskForm(createOrEdit) {
         return `
             <section id="createNewTaskForm">
-            <h3>Create New Task</h3>
+            <h3 id="editChange">${createOrEdit}</h3>
             <fieldset>
                 <label for="taskName">Name of Task</label>    
                 <input type="text" id="taskName" name="taskName"></input> 

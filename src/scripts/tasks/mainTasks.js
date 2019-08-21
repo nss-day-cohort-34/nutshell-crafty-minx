@@ -58,7 +58,7 @@ const initTasks = (activeUserId) => {
             // clear the container
             tasksContainer.innerHTML = ""
             // make html the task form
-            const newTaskForm = tasksHTML.createNewTaskForm()
+            const newTaskForm = tasksHTML.createNewTaskForm("Create New Task")
             // rendering the task form to the dom
             renderTasks(tasksContainer, newTaskForm)
         } else if (event.target.id.startsWith("saveTask")) {
@@ -92,10 +92,10 @@ const initTasks = (activeUserId) => {
             API.getSingleTask(taskToEdit)
                 // Render Form to the DOM with input fields
                 .then(() => {
-                    const editTaskHTML = tasksHTML.createNewTaskForm()
+
+                    const editTaskHTML = tasksHTML.createNewTaskForm("Edit Task")
                     // rendering the edit task form to the dom
                     renderTasks(tasksContainer, editTaskHTML)
-                    getTasks(activeUserId)
                 })
                 // Populate input fields in the DOM to represent the current state of the resource
                 .then(() => {
