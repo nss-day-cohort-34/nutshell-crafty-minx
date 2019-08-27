@@ -10,10 +10,10 @@ const tasksHTML = {
             <section id="listOfTasks"></section>
             `
     },
-    createNewTaskForm() {
+    createNewTaskForm(createOrEdit) {
         return `
             <section id="createNewTaskForm">
-            <h3>Create New Task</h3>
+            <h3 id="editChange">${createOrEdit}</h3>
             <fieldset>
                 <label for="taskName">Name of Task</label>    
                 <input type="text" id="taskName" name="taskName"></input> 
@@ -22,7 +22,7 @@ const tasksHTML = {
                 <label for="taskCompletionDate">Expected Completion Date</label>
                 <input type="date" name="taskCompletionDate" id="taskCompletionDate">
             </fieldset>
-            <button id="saveTask">Save Task</button>
+            <button id="saveTask">Save</button>
             </section>
         `
     },
@@ -34,23 +34,23 @@ const tasksHTML = {
             <button id="editButton_${taskObject.id}">Edit</button>
             <button id="deleteButton_${taskObject.id}">Delete</button>
         `
-    },
-    editTaskForm() {
-        return `
-        <section id="editTaskForm">
-        <h3>Edit Task</h3>
-        <fieldset>
-            <label for="taskName">Name of Task</label>    
-            <input type="text" id="editTaskName" name="taskName"></input> 
-        </fieldset>
-        <fieldset>
-            <label for="taskCompletionDate">Expected Completion Date</label>
-            <input type="date" name="taskCompletionDate" id="editTaskCompletionDate">
-        </fieldset>
-        <button id="saveEditedTask">Save Changes</button>
-        </section>
-        `
     }
+    // editTaskForm() {
+    //     return `
+    //     <section id="editTaskForm">
+    //     <h3>Edit Task</h3>
+    //     <fieldset>
+    //         <label for="taskName">Name of Task</label>
+    //         <input type="text" id="editTaskName" name="taskName"></input>
+    //     </fieldset>
+    //     <fieldset>
+    //         <label for="taskCompletionDate">Expected Completion Date</label>
+    //         <input type="date" name="taskCompletionDate" id="editTaskCompletionDate">
+    //     </fieldset>
+    //     <button id="saveEditedTask">Save Changes</button>
+    //     </section>
+    //     `
+    // }
 }
 
 export default tasksHTML
