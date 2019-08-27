@@ -39,7 +39,7 @@ articles.addEventListener("click", event => {
     const articleTitle = document.querySelector(".articleTitleInput");
     const articleSynopsis = document.querySelector(".articleSynopsisInput");
     const articleURL = document.querySelector(".articleURLInput");
-    console.log(articleTitle.value, articleSynopsis.value, articleURL.value);
+    // console.log(articleTitle.value, articleSynopsis.value, articleURL.value);
 
     const hiddenEditId = document.querySelector("#editID");
 
@@ -53,7 +53,7 @@ articles.addEventListener("click", event => {
       );
       editEntry(hiddenEditId.value, updatedObject).then(() => {
         postsContainer.innerHTML = "";
-        console.log(postsContainer)
+        // console.log(postsContainer)
         // const activeUserId = sessionStorage.getItem("activeUser")
         articlesData.articleFetch(activeUserId).then(articles => {
           for (const article of articles) {
@@ -72,7 +72,7 @@ articles.addEventListener("click", event => {
         timestamp,
         activeID
       );
-      console.log(newArticle);
+      // console.log(newArticle);
 
       fetch("http://localhost:8088/articles", {
         method: "POST",
@@ -144,9 +144,9 @@ const updateFields = editIDparam => {
 
 articles.addEventListener("click", event => {
   if (event.target.id.startsWith("editButton")) {
-    console.log(event.target.id);
+    // console.log(event.target.id);
     const entryToEdit = event.target.id.split("--")[1];
-    console.log(entryToEdit);
+    // console.log(entryToEdit);
 
     updateFields(entryToEdit)
   }

@@ -15,7 +15,7 @@ const messageFactory = {
     },
 
     messageHTML(messageObject, activeUserId) {
-       console.log(messageObject.userId)
+    //    console.log(messageObject.userId)
         if (messageObject.userId === activeUserId) {
             return `
                 <section id="messageDisplay--${messageObject.id}">
